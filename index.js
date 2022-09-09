@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
@@ -170,6 +171,35 @@ function createIntern() {
       team.push(intern);
       promptMenu();
     });
+}
+
+function buildTeam() {
+  const html = `<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./style.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+        />
+        <title>My Team</title>
+      </head>
+      <body>
+        <header>
+          <h1>My Team</h1>
+        </header>
+        <div class="row justify-content-center" id="team">`;
+
+  fs.writeFile("./dist/index.html", html, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
 }
 
 createManager();
