@@ -1,4 +1,6 @@
 const inquirer = require("inquirer");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
 let team = [];
@@ -85,10 +87,10 @@ function promptMenu() {
     .then((userPrompt) => {
       switch (userPrompt.menu) {
         case "Add an Engineer":
-          promptEngineer();
+          createEngineer();
           break;
         case "Add an Intern":
-          promptIntern();
+          createIntern();
           break;
         default:
           buildTeam();
@@ -96,24 +98,78 @@ function promptMenu() {
     });
 }
 
-function createEmployee() {
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "Please provide name of employee",
-      name: "name",
-    },
-    {
-      type: "input",
-      message: "Please provide employees ID",
-      name: "id",
-    },
-    {
-      type: "input",
-      message: "Please provide emplyees email address",
-      name: "email",
-    },
-  ]);
+function createEngineer() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Please provide the name of Engineer",
+        name: "name",
+      },
+      {
+        type: "input",
+        message: "Please provide Engineer's ID",
+        name: "id",
+      },
+      {
+        type: "input",
+        message: "Please provide Engineer's email address",
+        name: "email",
+      },
+      {
+        type: "input",
+        message: "Please provide Engineer's GitHub",
+        name: "github",
+      },
+    ])
+    .then((answers) => {
+      console.log(answers);
+      const engineer = new Engineer(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.github
+      );
+      team.push(engineer);
+      promptMenu();
+    });
 }
 
-createEmployee();
+function createIntern() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Please provide the name of Intern",
+        name: "name",
+      },
+      {
+        type: "input",
+        message: "Please provide Intern's ID",
+        name: "id",
+      },
+      {
+        type: "input",
+        message: "Please provide Intern's email address",
+        name: "email",
+      },
+      {
+        type: "input",
+        message: "Please provide name of Intern's school",
+        name: "school",
+      },
+    ])
+    .then((answers) => {
+      console.log(answers);
+      const intern = new Intern(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.school
+      );
+      team.push(intern);
+      promptMenu();
+    });
+}
+
+createManager();
