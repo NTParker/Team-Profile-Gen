@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "jest": "^29.0.2"
+  },
+  "name": "team-profile-gen",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NTParker/Team-Profile-Gen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NTParker/Team-Profile-Gen/issues"
+  },
+  "homepage": "https://github.com/NTParker/Team-Profile-Gen#readme"
+}
