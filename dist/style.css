@@ -4,3 +4,28 @@ header {
   background-color: red;
   padding: 10px;
 }
+
+#teamCard {
+  border: black solid 1px;
+  margin: 20px;
+}
+
+#employeeName {
+  text-align: center;
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  margin-top: -1px;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
+#cardInfo {
+  padding: 5px;
+  margin-top: 10px;
+}
+
+#cardInfo ul li {
+  border: black transparent 0.5px;
+  padding: 5px;
+}

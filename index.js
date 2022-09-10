@@ -82,7 +82,7 @@ function promptMenu() {
         type: "list",
         message: "Please select what you would like to do:",
         name: "menu",
-        choices: ["Add and Engineer", "Add an Intern", "Finish my team"],
+        choices: ["Add an Engineer", "Add an Intern", "Finish my team"],
       },
     ])
     .then((userPrompt) => {
@@ -100,6 +100,7 @@ function promptMenu() {
 }
 
 function createEngineer() {
+  console.log("in here");
   inquirer
     .prompt([
       {
@@ -196,6 +197,71 @@ function buildTeam() {
         <div class="row justify-content-center" id="team">`;
 
   fs.writeFile("./dist/index.html", html, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  buildCards();
+}
+
+function buildCards() {
+  for (let i = 0; i < team.length; i++) {
+    let traitName;
+    let jobTrait;
+    let jobTitle;
+
+    console.log(team[i]);
+    if (team[i].officeNumber != null) {
+      jobTitle = "Manager";
+      jobTrait = team[i].officeNumber;
+      traitName = "Office Number:";
+    } else if (team[i].github != null) {
+      jobTitle = "Engineer";
+      jobTrait = team[i].github;
+      traitName = "github";
+    } else {
+      jobTitle = "Intern";
+      jobTrait = team[i].school;
+      traitName = "school";
+    }
+
+    let cardHTML = `
+    <div class="col-sm-12 col-md-3" id="teamCard">
+        <div id="employeeName">
+            <h2>${team[i].name}</h2>
+            <h3>${jobTitle}</h3>
+            </div>
+            <div id="cardInfo">
+            <ul>
+                <li>ID: ${team[i].id}</li>
+                <li>Email: <a href="mailto:${team[i].email}">${
+      team[i].email
+    }</a></li>
+                <li>${traitName + jobTrait}</li>
+                </ul>
+                </div>
+                </div>
+                `;
+
+    fs.appendFile("./dist/index.html", cardHTML, function (err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+  endHTML();
+}
+
+function endHTML() {
+  const footerHtml = `
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"></script>
+    </body>
+    </html>
+    `;
+
+  fs.appendFile("./dist/index.html", footerHtml, function (err) {
     if (err) {
       console.log(err);
     }
