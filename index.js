@@ -194,6 +194,38 @@ function createIntern() {
 }
 
 function buildTeam() {
+  const css = `
+  header {
+    text-align: center;
+    color: white;
+    background-color: rgb(243, 110, 95);
+    padding: 20px;
+  }
+  
+  #teamCard {
+    border: black solid 1px;
+    margin: 20px;
+  }
+  
+  #employeeName {
+    text-align: left;
+    background-color: rgb(89, 89, 212);
+    color: white;
+    padding: 8px;
+    margin-top: -1px;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+  
+  #cardInfo {
+    padding: 5px;
+    margin-top: 10px;
+  }
+  
+  #cardInfo ul li {
+    border: black 0.5px;
+    padding: 5px;
+  }`;
   const html = `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -220,7 +252,13 @@ function buildTeam() {
       console.log(err);
     }
   });
+  fs.writeFile("./dist/style.css", css, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
   buildCards();
+  endHTML();
 }
 
 function buildCards() {
@@ -267,7 +305,7 @@ function buildCards() {
       }
     });
   }
-  endHTML();
+  // endHTML();
 }
 
 function endHTML() {
