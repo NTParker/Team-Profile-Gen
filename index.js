@@ -71,7 +71,26 @@ function createManager() {
         answers.officeNumber
       );
       team.push(manager);
-      promptMenu();
+      addTeamMember();
+    });
+}
+
+function addTeamMember() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Would you like to add another team member?",
+        choices: ["Yes", "No"],
+        name: "addTeamMember",
+      },
+    ])
+    .then(function ({ addTeamMember }) {
+      if (addTeamMember === "Yes") {
+        promptMenu();
+      } else {
+        buildTeam();
+      }
     });
 }
 
@@ -82,7 +101,7 @@ function promptMenu() {
         type: "list",
         message: "Please select what you would like to do:",
         name: "menu",
-        choices: ["Add an Engineer", "Add an Intern", "Finish my team"],
+        choices: ["Add an Engineer", "Add an Intern"],
       },
     ])
     .then((userPrompt) => {
@@ -94,7 +113,7 @@ function promptMenu() {
           createIntern();
           break;
         default:
-          buildTeam();
+          addTeamMember();
       }
     });
 }
@@ -133,7 +152,7 @@ function createEngineer() {
         answers.github
       );
       team.push(engineer);
-      promptMenu();
+      addTeamMember();
     });
 }
 
@@ -170,7 +189,7 @@ function createIntern() {
         answers.school
       );
       team.push(intern);
-      promptMenu();
+      addTeamMember();
     });
 }
 
@@ -210,19 +229,18 @@ function buildCards() {
     let jobTrait;
     let jobTitle;
 
-    console.log(team[i]);
     if (team[i].officeNumber != null) {
       jobTitle = "Manager";
       jobTrait = team[i].officeNumber;
-      traitName = "Office Number:";
+      traitName = "Office Number: ";
     } else if (team[i].github != null) {
       jobTitle = "Engineer";
-      jobTrait = team[i].github;
-      traitName = "github";
+      jobTrait = `<a href="https://www.github.com/${team[i].github}">${team[i].github}</a>`;
+      traitName = "GitHub: ";
     } else {
       jobTitle = "Intern";
       jobTrait = team[i].school;
-      traitName = "school";
+      traitName = "School: ";
     }
 
     let cardHTML = `
@@ -254,9 +272,9 @@ function buildCards() {
 
 function endHTML() {
   const footerHtml = `
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
     </html>
     `;
