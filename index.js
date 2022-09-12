@@ -305,7 +305,6 @@ function buildCards() {
       }
     });
   }
-  // endHTML();
 }
 
 function endHTML() {
